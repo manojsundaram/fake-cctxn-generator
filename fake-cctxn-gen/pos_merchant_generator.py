@@ -14,7 +14,7 @@ fake = Factory.create('en_US')
 
 #TODO - move categories to a config file, ratehr than hardcoding
 
-header = "category|merchant_name"
+header = "merchant_id|category|merchant_name"
 category_list = ["gas_transport",
                  "grocery_net",
                  "grocery_pos",
@@ -35,4 +35,5 @@ print(header)
 
 for c in category_list:
     for _ in range(0, n):
-        print(c + "|" + 'fraud_' + fake.company())
+        
+        print(fake.uuid4() + "|"+ c + "|" + 'fraud_' + fake.company())
