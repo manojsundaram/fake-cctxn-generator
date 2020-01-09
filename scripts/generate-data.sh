@@ -13,4 +13,11 @@ do
 	fname=`echo $i | awk -F "." '{print $1}'`
 	python3 ../fake-cctxn-gen/datagen_transaction.py /data/reference_data/customers.csv ../fake-cctxn-gen/profiles/$i 12-30-2018 12-30-2019 >> /data/transactions/$fname.csv &
 done
+mkdir -p /data/reference_data_in/
+sed 1d /data/reference_data/age_gender_demographics.csv > /data/reference_data_in/age_gender_demographics.csv
+sed 1d /data/reference_data/customers.csv  > /data/reference_data_in/customers.csv
+sed 1d /data/reference_data/locations_partitions.csv > /data/reference_data_in/locations_partitions.csv
+sed 1d /data/reference_data/merchants.csv > /data/reference_data_in/merchants.csv
+
+chmod -R 777 /data
 set +x
