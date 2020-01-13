@@ -19,5 +19,10 @@ sed 1d /data/reference_data/customers.csv  > /data/reference_data_in/customers.c
 sed 1d /data/reference_data/locations_partitions.csv > /data/reference_data_in/locations_partitions.csv
 sed 1d /data/reference_data/merchants.csv > /data/reference_data_in/merchants.csv
 
+SCRIPT=$(readlink -f "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+
+$SCRIPTPATH/txn.sh
+
 chmod -R 777 /data
 set +x
