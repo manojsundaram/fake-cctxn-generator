@@ -22,6 +22,7 @@ sed 1d /data/reference_data/merchants.csv > /data/reference_data_in/merchants.cs
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 
+
 $SCRIPTPATH/txn.sh
 
 chmod -R 777 /data
