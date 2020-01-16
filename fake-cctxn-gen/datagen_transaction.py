@@ -84,13 +84,10 @@ def create_header(line):
     headers = line.split('|')
     headers[-1] = headers[-1].replace('\n','')
 
-#    print(type(headers))
-    print(headers[-1])
-
-#    headers.insert(0,'trans_id')
     headers.extend(['trans_num', 'trans_date', 'trans_time','unix_time', 'category', 'amt', 'is_fraud', 'merchant', 'merch_lat', 'merch_long'])
     #print ''.join([h + '|' for h in headers])[:-1]
-    print(''.join([h + '|' for h in headers])[:-1])
+#    headers.insert(0,'trans_num')
+    print('trans_num' + '|' + ''.join([h + '|' for h in headers])[:-1])
     return headers
 
 
@@ -234,6 +231,5 @@ if __name__ == '__main__':
                 is_fraud = 0
                 temp_tx_data = profile.sample_from(is_fraud)
                 cust.print_trans(temp_tx_data, is_fraud, fraud_dates)
-
 
 
