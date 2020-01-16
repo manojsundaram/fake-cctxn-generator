@@ -83,6 +83,11 @@ def get_user_input():
 def create_header(line):
     headers = line.split('|')
     headers[-1] = headers[-1].replace('\n','')
+
+#    print(type(headers))
+    print(headers[-1])
+
+#    headers.insert(0,'trans_id')
     headers.extend(['trans_num', 'trans_date', 'trans_time','unix_time', 'category', 'amt', 'is_fraud', 'merchant', 'merch_lat', 'merch_long'])
     #print ''.join([h + '|' for h in headers])[:-1]
     print(''.join([h + '|' for h in headers])[:-1])
@@ -108,6 +113,10 @@ class Customer:
             cust_state = cust.attrs['state']
             groups = t.split('|')
             trans_cat = groups[4]
+
+            ## COllect transaction id to appen as primary key for Kudu - manojs
+            tid = groups[0]
+
             merch_filtered = merch[merch['category'] == trans_cat]
             #random_row = merch_filtered.ix[random.sample(merch_filtered.index, 1)]
             #random_row = merch_filtered.loc[merch_filtered.index[random.sample(merch_filtered.index, 1)]]
@@ -138,10 +147,10 @@ class Customer:
 
             if is_fraud == 0 and groups[1] not in fraud_dates:
             # if cust.attrs['profile'] == "male_30_40_smaller_cities.json":
-                print(self.customer.replace('\n','') + '|' + t + '|' + str(chosen_merchant) + '|' + str(merch_lat) + '|' + str(merch_long))
+                print(tid + '|' + self.customer.replace('\n','') + '|' + t + '|' + str(chosen_merchant) + '|' + str(merch_lat) + '|' + str(merch_long))
 
             if is_fraud ==1:
-                print(self.customer.replace('\n','') + '|' + t + '|' + str(chosen_merchant) + '|' + str(merch_lat) + '|' + str(merch_long))
+                print(tid + '|' + self.customer.replace('\n','') + '|' + t + '|' + str(chosen_merchant) + '|' + str(merch_lat) + '|' + str(merch_long))
 
             #else:
                 # pass
