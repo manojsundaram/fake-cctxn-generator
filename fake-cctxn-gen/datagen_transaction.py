@@ -76,8 +76,6 @@ def get_user_input():
     except:
         error_msg(4)
 
-
-
     return customers, pro, pro_fraud, pro_name, pro_name_fraud, startd, endd, m
 
 def create_header(line):
@@ -101,8 +99,6 @@ class Customer:
 
         is_traveling = trans[1]
         travel_max = trans[2]
-
-
 
         for t in trans[0]:
 
