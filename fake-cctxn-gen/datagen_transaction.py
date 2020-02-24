@@ -45,8 +45,20 @@ def get_user_input():
 
     try:
         customers = open(sys.argv[1], 'r').readlines()
-        #customers = open('/Users/swarnim/PycharmProjects/data_generation/data/customers.csv', 'r').readlines()
-
+        #manojs
+        cstmr = []
+        for row_parsed in customers:
+             a=row_parsed.split('|')[1]
+             b=row_parsed.split('|')[14]
+             c=row_parsed.split('|')[15]
+             merged_row = a+'|'+b+'|'+c
+             cstmr.append(merged_row)
+             #s = '|'
+             #s = s.join(merged_row)
+#             merged_row = [(row_parsed.split('|')[1]),(row_parsed.split('|')[14])]
+#             cstmr.append(merged_row)
+             #cstmrss = "|"
+             #cstmrss = cstmrss.join(cstmr)
     except:
         error_msg(1)
     try:
@@ -76,15 +88,12 @@ def get_user_input():
     except:
         error_msg(4)
 
-    return customers, pro, pro_fraud, pro_name, pro_name_fraud, startd, endd, m
+    return cstmr, pro, pro_fraud, pro_name, pro_name_fraud, startd, endd, m
 
 def create_header(line):
     headers = line.split('|')
     headers[-1] = headers[-1].replace('\n','')
-
     headers.extend(['trans_num', 'trans_date', 'trans_time','unix_time', 'category', 'amt', 'is_fraud', 'merchant', 'merch_lat', 'merch_long'])
-    #print ''.join([h + '|' for h in headers])[:-1]
-#    headers.insert(0,'trans_num')
     print('trans_num' + '|' + ''.join([h + '|' for h in headers])[:-1])
     return headers
 
@@ -162,7 +171,7 @@ if __name__ == '__main__':
     # to prepare the user inputs
     # curr_profile is female_30_40_smaller_cities.json , for fraud as well as non fraud
     # profile_name is ./profiles/fraud_female_30_40_bigger_cities.json for fraud.
-    customers, pro, pro_fraud, curr_profile, curr_fraud_profile, start, end, profile_name = get_user_input()
+    cstmr, pro, pro_fraud, curr_profile, curr_fraud_profile, start, end, profile_name = get_user_input()
     #if curr_profile == "male_30_40_smaller_cities.json":
     #   inputCat = "travel"
     #elif curr_profile == "female_30_40_smaller_cities.json":
@@ -178,14 +187,14 @@ if __name__ == '__main__':
     #else:
     #    merch = pd.read_csv('./data/merchants.csv', sep='|')
 
-    headers = create_header(customers[0])
+    headers = create_header(cstmr[0])
     # generate Faker object to calc merchant transaction locations
     fake = Faker()
 
 
     # for each customer, if the customer fits this profile
     # generate appropriate number of transactions
-    for line in customers[1:]:
+    for line in cstmr[1:]:
             profile = profile_weights.Profile(pro, start, end)
             cust = Customer(line, profile)
             #print(cust.attrs['profile'])
