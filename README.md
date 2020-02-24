@@ -3,8 +3,8 @@ Use python3/pip3
 
 Instructions:
 1. Install packages from requirements.txt
-2. Create sample data using 
-     "python3 datagen_customer.py 10 10 fake-cctxn-gen/profiles/main_config.json"
-3. datagen_transaction.py
+2. Generate data
+     cd scripts; Run the script generate-data.sh
+     This script will generate data for all the predefined profiles write the output data to /data
 
-The code is based on a filtered version of https://github.com/manojsundaram/Sparkov_Data_Generation
+The code is is an updated version of https://github.com/manojsundaram/Sparkov_Data_Generation
