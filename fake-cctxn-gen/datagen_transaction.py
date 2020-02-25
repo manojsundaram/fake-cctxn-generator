@@ -46,45 +46,41 @@ def get_user_input():
     try:
         customers = open(sys.argv[1], 'r').readlines()
         #manojs
+        # Includes customer information in the Transactions
         cstmr = []
         for row_parsed in customers:
-             a=row_parsed.split('|')[1]
-             b=row_parsed.split('|')[14]
-             c=row_parsed.split('|')[15]
-             merged_row = a+'|'+b+'|'+c
+             cc_num=row_parsed.split('|')[1]
+             acct_num=row_parsed.split('|')[14]
+             profile=row_parsed.split('|')[15]
+             profile=profile[:-1]
+             c_state=row_parsed.split('|')[7]
+             c_lat=row_parsed.split('|')[9]
+             c_long=row_parsed.split('|')[10]
+             merged_row = cc_num+'|'+acct_num+'|'+profile+'|'+c_state+'|'+c_lat+'|'+c_long
              cstmr.append(merged_row)
-             #s = '|'
-             #s = s.join(merged_row)
-#             merged_row = [(row_parsed.split('|')[1]),(row_parsed.split('|')[14])]
-#             cstmr.append(merged_row)
-             #cstmrss = "|"
-             #cstmrss = cstmrss.join(cstmr)
     except:
         error_msg(1)
     try:
+        # Only generates and plays with file names
         m = str(sys.argv[2])
-        #m = '/Users/swarnim/PycharmProjects/data_generation/profiles/female_30_40_smaller_cities.json'
         pro_name = m.split('profiles')[-1]
         pro_name = pro_name[1:]
         parse_index = m.index('profiles') + 9
         m_fraud = m[:parse_index] +'fraud_' + m[parse_index:]
-        #m = 'C:\Users\swarnim\PycharmProjects\data_generation\profiles\male_30_40_bigger_cities_fruad.json'
 
+        # Open all profile files
         pro = open(m, 'r').read()
         pro_fraud = open(m_fraud, 'r').read()
         pro_name_fraud = 'fraud_' + pro_name
-        #fix for windows file paths
 
     except:
         error_msg(2)
     try:
         startd = convert_date(sys.argv[3])
-        #startd = convert_date('01-01-2013')
     except:
         error_msg(3)
     try:
         endd = convert_date(sys.argv[4])
-        #endd = convert_date('12-31-2014')
     except:
         error_msg(4)
 
@@ -191,7 +187,6 @@ if __name__ == '__main__':
     # generate Faker object to calc merchant transaction locations
     fake = Faker()
 
-
     # for each customer, if the customer fits this profile
     # generate appropriate number of transactions
     for line in cstmr[1:]:
@@ -224,7 +219,12 @@ if __name__ == '__main__':
                     is_fraud = 1
                     temp_tx_data = profile.sample_from(is_fraud)
                     fraud_dates = temp_tx_data[3]
+
+
                     cust.print_trans(temp_tx_data,is_fraud, fraud_dates)
+
+
+
                     #parse_index = m.index('profiles/') + 9
                     #m = m[:parse_index] +'fraud_' + m[parse_index:]
 
@@ -235,6 +235,9 @@ if __name__ == '__main__':
                 merch = pd.read_csv('/data/reference_data/merchants.csv', sep='|')
                 is_fraud = 0
                 temp_tx_data = profile.sample_from(is_fraud)
+
+
                 cust.print_trans(temp_tx_data, is_fraud, fraud_dates)
+
 
 
