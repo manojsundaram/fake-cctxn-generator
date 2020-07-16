@@ -1,4 +1,4 @@
-#Fake Customer Database & Credit Card Transactions Generator
+# Fake Customer Database & Credit Card Transactions Generator
 Intended to be used to simulate data ingestion scenarios in a bank & build usecases from there
 
 Instructions:
