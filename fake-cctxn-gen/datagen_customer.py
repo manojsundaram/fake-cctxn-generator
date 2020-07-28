@@ -131,7 +131,8 @@ def validate():
 
         output = '\nENTER:\n (1) Number of customers\n '
         output += '(2) Random seed (int)\n '
-        output += '(3) main_config.json'
+        output += '(3) Base Home Directory\n '
+        output += '(4) main_config.json'
 
         print(output)
         sys.exit(0)
@@ -147,23 +148,27 @@ def validate():
     except:
         print_err(2)
     try:
-        m = sys.argv[3]
+        base_home = str(sys.argv[3])
+    except:
+        print_err(3)
+    try:
+        m = sys.argv[4]
         ## m = 'profiles/main_config.json'
         main = open(m, 'r').read()
 
     except:
-        print_err(3)
+        print_err(4)
 
-    return num_cust, seed_num, main
+    return num_cust, seed_num, base_home, main
 
 
 if __name__ == '__main__':
     # read and validate stdin
-    num_cust, seed_num, main = validate()
+    num_cust, seed_num, base_home, main = validate()
 
     # from demographics module
-    cities = demographics.make_cities()
-    age_gender = demographics.make_age_gender_dict()
+    cities = demographics.make_cities(base_home)
+    age_gender = demographics.make_age_gender_dict(base_home)
 
     fake = Faker()
     Faker.seed(seed_num)
