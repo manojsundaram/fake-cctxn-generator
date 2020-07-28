@@ -64,7 +64,7 @@ rm -rf $GENERATOR_HOME/data/
 mkdir -p $GENERATOR_HOME/data/reference_data $GENERATOR_HOME/data/transactions
 cp $GENERATOR_HOME/fake-cctxn-gen/demographic_data/* $GENERATOR_HOME/data/reference_data
 python3 $GENERATOR_HOME/fake-cctxn-gen/pos_merchant_generator.py >> $GENERATOR_HOME/data/reference_data/merchants.csv
-python3 $GENERATOR_HOME/fake-cctxn-gen/datagen_customer.py $CUSTOMER_NUM 4444 $GENERATOR_HOME/fake-cctxn-gen/profiles/main_config.json >> $GENERATOR_HOME/data/reference_data/customers.csv
+python3 $GENERATOR_HOME/fake-cctxn-gen/datagen_customer.py $CUSTOMER_NUM 4444 $GENERATOR_HOME $GENERATOR_HOME/fake-cctxn-gen/profiles/main_config.json >> $GENERATOR_HOME/data/reference_data/customers.csv
 
 # Enter your allowed profiles
 for i in adults_2550_female_rural.json adults_2550_female_urban.json adults_2550_male_rural.json adults_2550_male_urban.json adults_50up_female_rural.json adults_50up_female_urban.json adults_50up_male_rural.json adults_50up_male_urban.json young_adults_female_rural.json young_adults_female_urban.json young_adults_male_rural.json young_adults_male_urban.json
