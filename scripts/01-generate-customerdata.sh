@@ -59,6 +59,7 @@ then
   exit 1
 fi
 
+
 # Check python3 and install. If the user can't sudo, for example run in a NiFi Processor, have to install python3 manually in advance.
 python3 --version && echo "Python 3 is ready" || sudo yum install -y python3
 pip3 install -r $GENERATOR_HOME/init/requirements.txt
