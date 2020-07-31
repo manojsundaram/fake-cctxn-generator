@@ -157,10 +157,10 @@ class Customer:
             csv_lines = ''
             if is_fraud == 0 and groups[1] not in fraud_dates:
             # if cust.attrs['profile'] == "male_30_40_smaller_cities.json":
-                csv_lines += (tid + '|' + self.customer.replace('\n','') + '|' + t + '|' + str(chosen_merchant) + '|' + str(merch_lat) + '|' + str(merch_long) + '\n')
+                csv_lines += (self.customer.replace('\n','') + '|' + t + '|' + str(chosen_merchant) + '|' + str(merch_lat) + '|' + str(merch_long) + '\n')
 
             if is_fraud ==1:
-                csv_lines += (tid + '|' + self.customer.replace('\n','') + '|' + t + '|' + str(chosen_merchant) + '|' + str(merch_lat) + '|' + str(merch_long) + '\n')
+                csv_lines += (self.customer.replace('\n','') + '|' + t + '|' + str(chosen_merchant) + '|' + str(merch_lat) + '|' + str(merch_long) + '\n')
 
             #else:
                 # pass
@@ -207,7 +207,7 @@ if __name__ == '__main__':
     # for each customer, if the customer fits this profile
     # generate appropriate number of transactions
     i = 0
-    csv_lines = (''.join([h + '|' for h in headers])[:-1] + '\n')
+    output_lines = (''.join([h + '|' for h in headers])[:-1] + '\n')
     for line in cstmr[1:]:
 
             i += 1
@@ -243,7 +243,7 @@ if __name__ == '__main__':
                     fraud_dates = temp_tx_data[3]
 
                     if cust is not None:
-                        csv_lines += str(cust.print_trans(temp_tx_data,is_fraud, fraud_dates))
+                        output_lines += str(cust.print_trans(temp_tx_data,is_fraud, fraud_dates))
 
                     #parse_index = m.index('profiles/') + 9
                     #m = m[:parse_index] +'fraud_' + m[parse_index:]
@@ -257,12 +257,12 @@ if __name__ == '__main__':
                 temp_tx_data = profile.sample_from(is_fraud)
 
                 if cust is not None:
-                    csv_lines += str(cust.print_trans(temp_tx_data, is_fraud, fraud_dates))
+                    output_lines += str(cust.print_trans(temp_tx_data, is_fraud, fraud_dates))
 
-                # Print every 10 objects to a new file
-                if i % 10 == 0:
-                    new_filename = base_file_name + "_" + str(int(time.time())) + ".csv"
-                    with open(new_filename, "a+") as text_file:
-                        print("{}".format(csv_lines), file=text_file)
-                    csv_lines = (''.join([h + '|' for h in headers])[:-1] + '\n')
+            # Print every 10 objects to a new file
+            if i % 10 == 0 and len(output_lines.splitlines()) > 1:
+                new_filename = base_file_name + "_" + str(int(time.time())) + ".csv"
+                with open(new_filename, "a+") as text_file:
+                    print("{}".format(output_lines), file=text_file)
+                output_lines = (''.join([h + '|' for h in headers])[:-1] + '\n')
 

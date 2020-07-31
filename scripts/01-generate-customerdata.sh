@@ -59,7 +59,11 @@ then
   exit 1
 fi
 
+
+# Check python3 and install. If the user can't sudo, for example run in a NiFi Processor, have to install python3 manually in advance.
+python3 --version && echo "Python 3 is ready" || sudo yum install -y python3
 pip3 install -r $GENERATOR_HOME/init/requirements.txt
+
 rm -rf $GENERATOR_HOME/data/
 mkdir -p $GENERATOR_HOME/data/reference_data $GENERATOR_HOME/data/transactions
 cp $GENERATOR_HOME/fake-cctxn-gen/demographic_data/* $GENERATOR_HOME/data/reference_data
