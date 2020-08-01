@@ -263,6 +263,6 @@ if __name__ == '__main__':
             if i % 10 == 0 and len(output_lines.splitlines()) > 1:
                 new_filename = base_file_name + "_" + str(int(time.time())) + ".csv"
                 with open(new_filename, "a+") as text_file:
-                    print("{}".format(output_lines), file=text_file)
+                    print("{}".format(output_lines.replace('None', '')[:-1]), file=text_file)
                 output_lines = (''.join([h + '|' for h in headers])[:-1] + '\n')
 
